@@ -1,0 +1,66 @@
+- name: Verificando se o diretório de certificados existe.
+  ansible.builtin.stat:
+    path: '{{ dir_ca_certs }}/'
+  register: check_dir_certs
+
+- name: Verificando se o diretório para certificados nginx existe.
+  ansible.builtin.stat:
+    path: '{{ dir_nginx_certs }}'
+  register: check_dir_nginx_certs
+
+- name: Verificando se o diretorio para certificados docker existe
+  ansible.builtin.stat:
+    path: '{{ dir_docker_certs }}/{{ dir_docker_registry }}/'
+  register: check_dir_docker_certs
+
+- name: Verificando se a private key da CA já foi criada
+  ansible.builtin.stat:
+    path: '{{ dir_ca_certs }}/{{ ca_name_key }}'
+  register: check_ca_private_key
+
+- name: Verificando se o certificado de CA já foi criado
+  ansible.builtin.stat:
+    path: '{{ dir_ca_certs }}/{{ ca_name_crt }}'
+  register: check_ca_crt
+
+- name: Verificando se a private key de servidor foi criada.
+  ansible.builtin.stat:
+    path: '{{ dir_srv_certs }}/{{ srv_name_key }}'
+  register: check_srv_private_key
+
+- name: Verificando se o csr do certificado de servidor foi criado.
+  ansible.builtin.stat:
+    path: '{{ dir_srv_certs }}/{{ srv_name_csr }}'
+  register: check_srv_csr
+
+- name: Verificando se o arquivo v3.ext foi criado.
+  ansible.builtin.stat:
+    path: '{{ dir_srv_certs }}/{{ v3_file_name }}'
+  register: check_v3_file
+
+- name: Verificando se o certificado de servidor foi criado.
+  ansible.builtin.stat:
+    path: '{{ dir_srv_certs }}/{{ srv_name_crt }}'
+  register: check_srv_crt
+
+- name: Verificando se o certificado para o docker foi convertido
+  ansible.builtin.stat:
+    path: '{{ dir_srv_certs }}/{{ srv_name_cert }}'
+  register: check_srv_cert
+
+- name: Verificando se os certificados para nginx foram copiados para base dir harbor.
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  with_items:
+    - '/data/cert/{{ srv_name_crt }}'
+    - '/data/cert/{{ srv_name_key }}'
+  register: check_data_certs
+
+- name: Verificando se os certificados foram copiados para o certs_dir do docker
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  with_items:
+    - '{{ dir_docker_certs }}/{{ dir_docker_registry }}/{{ ca_name_crt }}'
+    - '{{ dir_docker_certs }}/{{ dir_docker_registry }}/{{ srv_name_key }}'
+    - '{{ dir_docker_certs }}/{{ dir_docker_registry }}/{{ srv_name_cert }}'
+  register: check_docker_certs

@@ -1,0 +1,47 @@
+# Re-executar o instalador do Harbor
+reinstalar_harbor: 'no'
+
+hosts_deploy: 'harbor'
+usuario_vm: 'cri'
+
+# Diretorio base dos Certificados de CA
+dir_ca_certs: '/etc/ssl/harbor'
+ca_name_key: 'ca.key'
+ca_name_crt: 'ca.crt'
+
+# Diretorio para certificados do nginx - habor
+dir_nginx_certs: '/data/cert/'
+
+
+# Diretorio base dos certificados de Servidor
+dir_srv_certs: '/etc/ssl/harbor/server'
+srv_name_key: 'registry.devops-cri.lab.key'
+srv_name_csr: 'registry.devops-cri.lab.csr'
+srv_name_crt: 'registry.devops-cri.lab.crt'
+srv_name_cert: 'registry.devops-cri.lab.cert'
+v3_file_name: 'v3.ext'
+
+# Diretorio para certificados do Harbor para o Docker
+dir_docker_certs: '/etc/docker/certs.d'
+dir_docker_registry: 'registry.devops-cri.lab'
+
+# Download Harbor
+url_harbor: 'https://github.com/goharbor/harbor/releases/download/v2.6.1/harbor-online-installer-v2.6.1.tgz'
+dir_download_harbor: '/home'
+
+# Dados para os Certificados
+
+pais: 'BR'
+estado: 'MA'
+cidade: 'Sao Luis'
+empresa: 'IFMA'
+ou: 'DIGTI'
+commonname: 'registry.devops-cri.lab'
+
+dns_name_1: 'registry.devops-cri.lab'
+dns_name_2: 'registry'
+dns_name_3: 'harbor'
+
+# Arquivo de conf do Harbor
+hostname_harbor: 'registry.devops-cri.lab'
+

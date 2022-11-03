@@ -1,0 +1,7 @@
+---
+# handlers file for deploy-harbor
+
+- name: Restart Docker
+  ansible.builtin.service:
+    name: docker
+    state: restarted

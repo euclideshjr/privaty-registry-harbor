@@ -1,0 +1,30 @@
+- name: Garantindo que o diretório de certificados de CA esteja criado.
+  ansible.builtin.file:
+    path: '{{ dir_ca_certs }}'
+    state: directory
+    mode: '0755'
+
+- name: Garantindo que o diretório de certificados de Servidor esteja criado.
+  ansible.builtin.file:
+    path: '{{ dir_srv_certs }}'
+    state: directory
+    mode: '0755'
+
+- name: Garantindo que o diretório de certificados para o Nginx esteja criado.
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - '/data'
+    - '{{ dir_nginx_certs }}'
+
+- name: Garantindo que o diretório de certificados para o docker esteja criado..
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{ dir_docker_certs }}"
+    - "{{ dir_docker_certs }}/{{ dir_docker_registry}}"
+

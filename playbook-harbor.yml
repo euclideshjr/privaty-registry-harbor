@@ -1,0 +1,9 @@
+- name: Deploy Registry Harbor
+  hosts: "{{ hosts_deploy }}"
+  remote_user: "{{ usuario_vm }}"
+  become: yes
+  vars_files:
+    - external_vars/parametros.yml
+    - external_vars/credentials.yml
+  roles:
+    - { role: deploy-harbor } 

@@ -1,0 +1,97 @@
+- name: Verificando se o binário do Harbor já foi Baixado.
+  ansible.builtin.stat:
+    path: '{{ dir_download_harbor }}/{{ usuario_vm }}/harbor/'
+  register: check_exist_dir_harbor
+
+- name: Garantindo que o binário do Harbor seja baixado
+  ansible.builtin.unarchive:
+    src: "{{ url_harbor }}"
+    dest: "{{ dir_download_harbor }}/{{ usuario_vm }}/"
+    remote_src: yes
+  register: download_harbor
+  when: check_exist_dir_harbor.stat.exists == false
+
+- name: Garantindo a cópia do template harbor.yml
+  ansible.builtin.template:
+    src: ../templates/harbor.yml.j2
+    dest: '{{ dir_download_harbor }}/{{usuario_vm}}/harbor/harbor.yml'
+
+- name: Garantindo a criação da private key da CA
+  ansible.builtin.shell:
+    cmd: openssl genrsa -out "{{ dir_ca_certs }}/{{ ca_name_key }}" 4096
+  when: check_ca_private_key.stat.exists == false 
+
+- name: Garantindo a criação do certificado da CA
+  ansible.builtin.shell:
+    cmd: openssl req -x509 -new -nodes -sha512 -days 3650 -subj "/C={{ pais }}/ST={{ estado }}/L={{ cidade }}/O={{ empresa }}/OU={{ ou }}/CN={{ commonname }}" -key "{{dir_ca_certs}}/{{ca_name_key}}" -out "{{dir_ca_certs}}/{{ca_name_crt}}"
+  when: check_ca_crt.stat.exists == false
+
+- name: Garantindo a criação da private key do certificado de servidor
+  ansible.builtin.shell:
+    cmd: openssl genrsa -out "{{dir_srv_certs}}/{{srv_name_key}}" 4096
+  register: task_srv_key
+  when: check_srv_private_key.stat.exists == false
+
+- name: Garantindo a criação do csr
+  ansible.builtin.shell:
+    cmd: openssl req -sha512 -new -subj "/C={{ pais }}/ST={{ estado }}/L={{ cidade }}/O={{ empresa }}/OU={{ ou }}/CN={{ commonname }}" -key "{{dir_srv_certs}}/{{srv_name_key}}" -out "{{dir_srv_certs}}/{{srv_name_csr}}"
+  when: check_srv_csr.stat.exists == false
+
+- name: Garantindo a criação do arquivo x509 v3 extension file
+  ansible.builtin.shell: |
+    cat > "{{ dir_srv_certs }}/v3.ext" <<-EOF
+          authorityKeyIdentifier=keyid,issuer
+          basicConstraints=CA:FALSE
+          keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+          extendedKeyUsage = serverAuth
+          subjectAltName = @alt_names
+
+          [alt_names]
+          DNS.1={{dns_name_1}}
+          DNS.2={{dns_name_2}}
+          DNS.3={{dns_name_3}}
+  when: check_v3_file.stat.exists == false
+
+- name: Garantindo a criação de certificado para o host
+  ansible.builtin.shell:
+    cmd: openssl x509 -req -sha512 -days 3650 -extfile "{{dir_srv_certs}}"/v3.ext -CA "{{dir_ca_certs}}/{{ca_name_crt}}" -CAkey "{{dir_ca_certs}}/{{ca_name_key}}" -CAcreateserial -in "{{dir_srv_certs}}/{{srv_name_csr}}" -out "{{dir_srv_certs}}/{{srv_name_crt}}"
+  when: check_srv_crt.stat.exists == false
+
+- name: Garantindo a conversão do certificado de servidor de crt pata cert
+  ansible.builtin.shell:
+    cmd: openssl x509 -inform PEM -in "{{dir_srv_certs}}/{{srv_name_crt}}" -out "{{dir_srv_certs}}/{{srv_name_cert}}"
+  when: check_srv_cert.stat.exists == false
+
+- name: Garantindo a cópia dos certificados para nginx
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ dir_nginx_certs }}"
+    remote_src: yes
+  with_items:
+    - '{{ dir_srv_certs }}/{{ srv_name_key }}'
+    - '{{ dir_srv_certs }}/{{ srv_name_crt }}'
+
+- name: Garantindo a cópia do certificado de CA para a pasta do Docker
+  ansible.builtin.copy:
+    src: '{{ dir_ca_certs }}/{{ ca_name_crt }}'
+    dest: '{{ dir_docker_certs }}/{{ dir_docker_registry }}/'
+    remote_src: yes
+  notify: Restart Docker
+  #when: existe_docker_certs.stat.exists == false
+
+- name: Garantindo a cópia dos certificados de host para a pasta do docker
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: '{{dir_docker_certs }}/{{ dir_docker_registry }}/'
+    remote_src: yes
+  with_items:
+    - '{{ dir_srv_certs }}/{{ srv_name_key }}'
+    - '{{ dir_srv_certs }}/{{ srv_name_cert }}'
+  notify: Restart Docker
+  #when: existe_docker_certs.stat.exists == false
+
+- name: Garantindo a instalação do Harbor
+  ansible.builtin.shell: |
+    cd "{{ dir_download_harbor }}/{{usuario_vm}}"/harbor
+    ./install.sh --with-trivy
+  when: download_harbor.changed == true or  reinstalar_harbor == "yes"

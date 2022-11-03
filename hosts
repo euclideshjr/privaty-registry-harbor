@@ -1,0 +1,6 @@
+[harbor]
+10.0.40.216
+
+[harbor:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_become_password={{ sudo_password }}

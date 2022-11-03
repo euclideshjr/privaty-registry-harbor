@@ -1,0 +1,7 @@
+---
+# tasks file for deploy-harbor
+
+- import_tasks: checa_certificados.yml
+- import_tasks: prerequisitos.yml
+- import_tasks: cria_diretorios.yml
+- import_tasks: deploy-harbor.yml
