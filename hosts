@@ -1,5 +1,20 @@
+#########################################################
+#   ARQUIVO DE INVENTÁRIO PARA INSTALACÃO DO HARBOR     #
+#########################################################
+
+#-------------------------------------------------------#
+# Informar o endereço IP da Máquina que será alvo       #
+# da instalação do Harbor.                              #
+#-------------------------------------------------------#
+
 [harbor]
 10.0.40.216
+
+
+#-------------------------------------------------------#
+# Contexto de definição de variáveis para o(s) host(s)  #
+# definido no contexto acima: \[harbor\]                #
+#-------------------------------------------------------#
 
 [harbor:vars]
 ansible_python_interpreter=/usr/bin/python3
