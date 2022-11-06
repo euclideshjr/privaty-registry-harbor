@@ -1,7 +1,7 @@
 ## Projeto visa a criação em laboratório de um Registry Privado com Harbor.  
 
-- Procedimentos executados durante a execução desse Playbook:   
-[x] Verifica se os diretório e certificados existem antes da execução  
+- Procedimentos executados durante a execução desse Playbook:  
+[ x ] - Verifica se os diretório e certificados existem antes da execução  
 [x] Instala Docker  
 [x] Instala Docker-Compose  
 [x] Cria os diretórios para os certificados  
