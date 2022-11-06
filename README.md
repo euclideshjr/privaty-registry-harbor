@@ -1,6 +1,6 @@
 ## Projeto visa a criação em laboratório de um Registry Privado com Harbor.  
 
-- **Procedimentos executados durante a execução desse Playbook:**  
+- ## Procedimentos executados durante a execução desse Playbook:  
 - [X] Verifica se os diretório e certificados existem antes da execução  
 - [X] Instala Docker  
 - [X] Instala Docker-Compose  
@@ -10,12 +10,11 @@
 - [X] Move os certificados para os diretórios necessários.  
 - [X] Baixa e faz o deploy do Harbor.  
 
-### As credenciais de acesso iniciais para o Harbor são: 
+- ## As credenciais de acesso iniciais para o Harbor são: 
 - **usuario:** admin
 - **senha:** "definida no arquivo external\_vars/credentials.yml"  
 &nbsp;
-- {+ Para execução do Playbook é necessário que se tenha o ansible instalado no seu pc. +}
-&nbsp;
+> ## Para execução do Playbook é necessário que se tenha o ansible instalado no seu pc.  
 ## Utilização:  
 - Editar o arquivo hosts e informar o IP do servidor Harbor.  
 
@@ -25,7 +24,7 @@
 
 - Como sugestão, após edição, encryptar o arquivo credentials.yml. Será solicitado que informe uma senha e a confirme para criptografar o conteúdo do arquivo.
 ```
-ansible-vault encrypt external\_vars/credentials.yml
+ansible-vault encrypt external_vars/credentials.yml
 ```  
 
 - No diretório raiz do repositório executar, caso tenha criptografado o arquivo:
