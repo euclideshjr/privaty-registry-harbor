@@ -9,7 +9,7 @@
 # vez caso queira adicionar algum parâmetro.                       #
 # Mudar seu valor para 'yes'                                       #
 #------------------------------------------------------------------#
-reinstalar_harbor: 'nao'
+reinstalar_harbor: 'no'
 
 #------------------------------------------------------------------#
 # Define qual ou quais serão as máquinas alvos do deploy, definidas#
