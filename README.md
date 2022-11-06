@@ -1,14 +1,14 @@
 ## Projeto visa a criação em laboratório de um Registry Privado com Harbor.  
 
 - Procedimentos executados durante a execução desse Playbook:   
-[x] - Verifica se os diretório e certificados existem antes da execução  
-[x] - Instala Docker  
-[x] - Instala Docker-Compose  
-[x] - Cria os diretórios para os certificados  
-[x] - Cria o diretório usado como volume bind para o Harbor  
-[x] - Cria todos os certificados necessários para o deploy do Harbor.  
-[x] - Move os certificados para os diretórios necessários.  
-[x] - Baixa e faz o deploy do Harbor.  
+[x] Verifica se os diretório e certificados existem antes da execução  
+[x] Instala Docker  
+[x] Instala Docker-Compose  
+[x] Cria os diretórios para os certificados  
+[x] Cria o diretório usado como volume bind para o Harbor  
+[x] Cria todos os certificados necessários para o deploy do Harbor.  
+[x] Move os certificados para os diretórios necessários.  
+[x] Baixa e faz o deploy do Harbor.  
 
 ### As credenciais de acesso iniciais para o Harbor são: 
 - usuario: admin
