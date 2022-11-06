@@ -3,7 +3,7 @@
 - **Procedimentos executados durante a execução desse Playbook:**  
 - [X] Verifica se os diretório e certificados existem antes da execução  
 - [X] Instala Docker  
-[ x ] Instala Docker-Compose  
+- [ X ] Instala Docker-Compose  
 [ x ] Cria os diretórios para os certificados  
 [ x ] Cria o diretório usado como volume bind para o Harbor  
 [ x ] Cria todos os certificados necessários para o deploy do Harbor.  
