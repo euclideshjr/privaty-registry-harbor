@@ -1,19 +1,50 @@
-# Re-executar o instalador do Harbor
-reinstalar_harbor: 'no'
+####################################################################
+#   Variaveis para serem utilizadas durante o deploy do Harbor     #
+####################################################################
 
+#------------------------------------------------------------------#
+# A task de execução do Harbor verifica se o binário foi baixado   #
+# para decidir se executará o instalador ou não. Esta variável faz #
+# após a primeira execução, que o instalador seja executado outra  #
+# vez caso queira adicionar algum parâmetro.                       #
+# Mudar seu valor para 'yes'                                       #
+#------------------------------------------------------------------#
+reinstalar_harbor: 'nao'
+
+#------------------------------------------------------------------#
+# Define qual ou quais serão as máquinas alvos do deploy, definidas#
+# no arquivo de inventário.                                        #
+#------------------------------------------------------------------#
 hosts_deploy: 'harbor'
+
+#------------------------------------------------------------------#
+# Define qual será o usuario utilizado para logar na máquina. Mesmo#
+# usuário criado durante a instalação do S.O                       #
+#------------------------------------------------------------------#
 usuario_vm: 'cri'
 
-# Diretorio base dos Certificados de CA
+#------------------------------------------------------------------#
+#     Define parametros para a criação do certificado da CA        #
+# - Diretorio base para os certificados                            #
+# - Nome da private Key                                            #
+# - Nome do certificado da CA                                      #
+#------------------------------------------------------------------#
 dir_ca_certs: '/etc/ssl/harbor'
 ca_name_key: 'ca.key'
 ca_name_crt: 'ca.crt'
 
-# Diretorio para certificados do nginx - habor
+#------------------------------------------------------------------#
+# Define o diretório onde será armazenado os certificados p nginx. #
+#------------------------------------------------------------------#
 dir_nginx_certs: '/data/cert/'
 
-
-# Diretorio base dos certificados de Servidor
+#------------------------------------------------------------------#
+#  Define parametros para a criacao do certificado auto assinado   #
+#                                                                  #
+# - Diretorio para os certificados                                 #
+# - Nome para: private key, csr, crt e cert (usado para o docker)  #
+#              nome do arquivo v3.ext                              #
+#------------------------------------------------------------------#
 dir_srv_certs: '/etc/ssl/harbor/server'
 srv_name_key: 'registry.devops-cri.lab.key'
 srv_name_csr: 'registry.devops-cri.lab.csr'
@@ -21,16 +52,17 @@ srv_name_crt: 'registry.devops-cri.lab.crt'
 srv_name_cert: 'registry.devops-cri.lab.cert'
 v3_file_name: 'v3.ext'
 
-# Diretorio para certificados do Harbor para o Docker
+#------------------------------------------------------------------#
+# Define o diretorio dentro do diretorio do docker onde serao      #
+# criados a pasta para o certificado e pasta com o nome do registry#
+#------------------------------------------------------------------#
 dir_docker_certs: '/etc/docker/certs.d'
 dir_docker_registry: 'registry.devops-cri.lab'
 
-# Download Harbor
-url_harbor: 'https://github.com/goharbor/harbor/releases/download/v2.6.1/harbor-online-installer-v2.6.1.tgz'
-dir_download_harbor: '/home'
-
-# Dados para os Certificados
-
+#------------------------------------------------------------------#
+#    Define os parâmetros que será informados para a criação       #
+#    do certificado auto assinado de servidor                      #
+#------------------------------------------------------------------#
 pais: 'BR'
 estado: 'MA'
 cidade: 'Sao Luis'
@@ -38,10 +70,23 @@ empresa: 'IFMA'
 ou: 'DIGTI'
 commonname: 'registry.devops-cri.lab'
 
+#------------------------------------------------------------------#
+#  Define os parâmetros que serão utilizados na seção [alt_names]  #
+#  do arquivo v3.ext                                               #
+#------------------------------------------------------------------#
 dns_name_1: 'registry.devops-cri.lab'
 dns_name_2: 'registry'
 dns_name_3: 'harbor'
 
-# Arquivo de conf do Harbor
-hostname_harbor: 'registry.devops-cri.lab'
+#------------------------------------------------------------------#
+#  Define a url com a versão do harbor para download e o diretório #
+#  onde será baixado. Na task ficará: /home/{{usuario_vm}}/harbor  #
+#------------------------------------------------------------------#
+url_harbor: 'https://github.com/goharbor/harbor/releases/download/v2.6.1/harbor-online-installer-v2.6.1.tgz'
+dir_download_harbor: '/home'
 
+#------------------------------------------------------------------#
+#   Parâmetro utilizado para informar a diretiva 'hostname'        #
+#   dentro do arquivo de configuração harbor.yml                   #
+#------------------------------------------------------------------#
+hostname_harbor: 'registry.devops-cri.lab'
