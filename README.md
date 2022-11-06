@@ -34,5 +34,5 @@ ansible-playbook -i hosts playbook-harbor.yml --ask-vault-pass
 
 - Caso não tenha criptografado o arquivo do vault:
 ```
-ansible-playbook -i hosts playbook.yml
+ansible-playbook -i hosts playbook-harbor.yml
 ```
