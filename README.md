@@ -3,12 +3,12 @@
 - **Procedimentos executados durante a execução desse Playbook:**  
 - [X] Verifica se os diretório e certificados existem antes da execução  
 - [X] Instala Docker  
-- [ X ] Instala Docker-Compose  
-[ x ] Cria os diretórios para os certificados  
-[ x ] Cria o diretório usado como volume bind para o Harbor  
-[ x ] Cria todos os certificados necessários para o deploy do Harbor.  
-[ x ] Move os certificados para os diretórios necessários.  
-[ x ] Baixa e faz o deploy do Harbor.  
+- [X] Instala Docker-Compose  
+- [X] Cria os diretórios para os certificados  
+- [X] Cria o diretório usado como volume bind para o Harbor  
+- [X] Cria todos os certificados necessários para o deploy do Harbor.  
+- [X] Move os certificados para os diretórios necessários.  
+- [X] Baixa e faz o deploy do Harbor.  
 
 ### As credenciais de acesso iniciais para o Harbor são: 
 - **usuario:** admin
@@ -24,9 +24,9 @@
 - Editar o arquivo external\_vars/credentials.yml e informar o valor das variáveis  
 
 - Como sugestão, após edição, encryptar o arquivo credentials.yml. Será solicitado que informe uma senha e a confirme para criptografar o conteúdo do arquivo.
-```
+---
 ansible-vault encrypt external\_vars/credentials.yml
-```  
+---  
 
 - No diretório raiz do repositório executar, caso tenha criptografado o arquivo:
 ```
