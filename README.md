@@ -13,9 +13,9 @@
 ### As credenciais de acesso iniciais para o Harbor são: 
 - **usuario:** admin
 - **senha:** "definida no arquivo external\_vars/credentials.yml"  
-
-- {+ Para execução do Playbook é necessário que se tenha o ansible instalado no seu pc. +} 
-
+&nbsp;
+- {+ Para execução do Playbook é necessário que se tenha o ansible instalado no seu pc. +}
+&nbsp;
 ## Utilização:  
 - Editar o arquivo hosts e informar o IP do servidor Harbor.  
 
@@ -24,9 +24,9 @@
 - Editar o arquivo external\_vars/credentials.yml e informar o valor das variáveis  
 
 - Como sugestão, após edição, encryptar o arquivo credentials.yml. Será solicitado que informe uma senha e a confirme para criptografar o conteúdo do arquivo.
----
+```
 ansible-vault encrypt external\_vars/credentials.yml
----  
+```  
 
 - No diretório raiz do repositório executar, caso tenha criptografado o arquivo:
 ```
