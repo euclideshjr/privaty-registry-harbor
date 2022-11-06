@@ -15,11 +15,17 @@
 - senha: "definida no arquivo external\_vars/credentials.yml"  
 
 ## Utilização:  
-- Editar o arquivo hosts e informar o IP do servidor Harbor.
-- Editar o arquivo external\_vars/parametros.yml e informar o valor das variaveis
-- Editar o arquivo external\_vars/credentials.yml e informar o valor das variáveis
-- Como sugestão, após edição, encryptar o arquivo credentials.yml: ansible-vault encrypt external\_vars/credentials.yml
-  informar uma senha e confirmar para criptografar o conteúdo do arquivo.  
+- Editar o arquivo hosts e informar o IP do servidor Harbor.  
+
+- Editar o arquivo external\_vars/parametros.yml e informar o valor das variaveis  
+
+- Editar o arquivo external\_vars/credentials.yml e informar o valor das variáveis  
+
+- Como sugestão, após edição, encryptar o arquivo credentials.yml. Será solicitado que informe uma senha e a confirme para criptografar o conteúdo do arquivo.
+```
+ansible-vault encrypt external\_vars/credentials.yml
+```  
+
 - No diretório raiz do repositório executar, caso tenha criptografado o arquivo:
 ```
 ansible-playbook -i hosts playbook-harbor.yml --ask-vault-pass
