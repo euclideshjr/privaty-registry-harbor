@@ -36,5 +36,5 @@ ansible-playbook -i hosts playbook-harbor.yml --ask-vault-pass
 ansible-playbook -i hosts playbook.yml
 ```
 
-> Para execução do Playbook é necessário que se tenha o ansible instalado no seu pc.
+> Para execução do Playbook é necessário que se tenha o ansible instalado no seu pc.  
 {.is-info}
