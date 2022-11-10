@@ -1,4 +1,4 @@
-## Projeto visa a criação em laboratório de um Registry Privado com Harbor.  
+## Projeto visa a criação em laboratório de um Registry Privado com Harbor e Certificados Autoassinados.
 
 - ## Procedimentos executados durante a execução desse Playbook:  
 - [X] Verifica se os diretório e certificados existem antes da execução  
