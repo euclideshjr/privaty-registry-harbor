@@ -21,7 +21,7 @@ hosts_deploy: 'harbor'
 # Define qual será o usuario utilizado para logar na máquina. Mesmo#
 # usuário criado durante a instalação do S.O                       #
 #------------------------------------------------------------------#
-usuario_vm: 'cri'
+usuario_vm: ''
 
 #------------------------------------------------------------------#
 #     Define parametros para a criação do certificado da CA        #
@@ -46,10 +46,10 @@ dir_nginx_certs: '/data/cert/'
 #              nome do arquivo v3.ext                              #
 #------------------------------------------------------------------#
 dir_srv_certs: '/etc/ssl/harbor/server'
-srv_name_key: 'registry.devops-cri.lab.key'
-srv_name_csr: 'registry.devops-cri.lab.csr'
-srv_name_crt: 'registry.devops-cri.lab.crt'
-srv_name_cert: 'registry.devops-cri.lab.cert'
+srv_name_key: 'registry.example.lab.key'
+srv_name_csr: 'registry.example.lab.csr'
+srv_name_crt: 'registry.example.lab.crt'
+srv_name_cert: 'registry.example.lab.cert'
 v3_file_name: 'v3.ext'
 
 #------------------------------------------------------------------#
@@ -57,24 +57,25 @@ v3_file_name: 'v3.ext'
 # criados a pasta para o certificado e pasta com o nome do registry#
 #------------------------------------------------------------------#
 dir_docker_certs: '/etc/docker/certs.d'
-dir_docker_registry: 'registry.devops-cri.lab'
+dir_docker_registry: 'registry.example.lab'
 
 #------------------------------------------------------------------#
 #    Define os parâmetros que será informados para a criação       #
 #    do certificado auto assinado de servidor                      #
 #------------------------------------------------------------------#
-pais: 'BR'
-estado: 'MA'
-cidade: 'Sao Luis'
-empresa: 'IFMA'
-ou: 'DIGTI'
-commonname: 'registry.devops-cri.lab'
+country: ''
+state: ''
+locality: ''
+organization: ''
+ou: ''
+commonname: ''
+email: ''
 
 #------------------------------------------------------------------#
 #  Define os parâmetros que serão utilizados na seção [alt_names]  #
 #  do arquivo v3.ext                                               #
 #------------------------------------------------------------------#
-dns_name_1: 'registry.devops-cri.lab'
+dns_name_1: 'registry.example.lab'
 dns_name_2: 'registry'
 dns_name_3: 'harbor'
 
@@ -89,4 +90,4 @@ dir_download_harbor: '/home'
 #   Parâmetro utilizado para informar a diretiva 'hostname'        #
 #   dentro do arquivo de configuração harbor.yml                   #
 #------------------------------------------------------------------#
-hostname_harbor: 'registry.devops-cri.lab'
+hostname_harbor: 'registry.example.lab'

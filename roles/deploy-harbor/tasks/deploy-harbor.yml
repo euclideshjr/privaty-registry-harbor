@@ -23,7 +23,7 @@
 
 - name: Garantindo a criação do certificado da CA
   ansible.builtin.shell:
-    cmd: openssl req -x509 -new -nodes -sha512 -days 3650 -subj "/C={{ pais }}/ST={{ estado }}/L={{ cidade }}/O={{ empresa }}/OU={{ ou }}/CN={{ commonname }}" -key "{{dir_ca_certs}}/{{ca_name_key}}" -out "{{dir_ca_certs}}/{{ca_name_crt}}"
+    cmd: openssl req -x509 -new -nodes -sha512 -days 3650 -subj "/C={{ country }}/ST={{ state }}/L={{ locality }}/O={{ organization }}/OU={{ ou }}/CN={{ commonname }}/E={{ email }}" -key "{{dir_ca_certs}}/{{ca_name_key}}" -out "{{dir_ca_certs}}/{{ca_name_crt}}"
   when: check_ca_crt.stat.exists == false
 
 - name: Garantindo a criação da private key do certificado de servidor
@@ -34,7 +34,7 @@
 
 - name: Garantindo a criação do csr
   ansible.builtin.shell:
-    cmd: openssl req -sha512 -new -subj "/C={{ pais }}/ST={{ estado }}/L={{ cidade }}/O={{ empresa }}/OU={{ ou }}/CN={{ commonname }}" -key "{{dir_srv_certs}}/{{srv_name_key}}" -out "{{dir_srv_certs}}/{{srv_name_csr}}"
+    cmd: openssl req -sha512 -new -subj "/C={{ country }}/ST={{ state }}/L={{ locality }}/O={{ organization }}/OU={{ ou }}/CN={{ commonname }}/E={{ email }}" -key "{{dir_srv_certs}}/{{srv_name_key}}" -out "{{dir_srv_certs}}/{{srv_name_csr}}"
   when: check_srv_csr.stat.exists == false
 
 - name: Garantindo a criação do arquivo x509 v3 extension file
