@@ -91,7 +91,6 @@
   #when: existe_docker_certs.stat.exists == false
 
 - name: Garantindo a instalação do Harbor
-  ansible.builtin.shell: |
-    cd "{{ dir_download_harbor }}/{{usuario_vm}}"/harbor
-    sudo ./install.sh --with-trivy
+  ansible.builtin.shell:
+    cmd: "{{ dir_download_harbor }}/{{usuario_vm}}"/harbor/install.sh --with-trivy
   when: download_harbor.changed == true or  reinstalar_harbor == "yes"
